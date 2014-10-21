@@ -1,0 +1,39 @@
+label.valid {
+  width: 24px;
+  height: 24px;
+  background: url(../imagens/valid.png) center center no-repeat;
+  display: inline-block;
+  text-indent: -9999px;
+}
+label.error {
+	font-weight: bold;
+	color: red;
+	padding: 2px 8px;
+	margin-top: 2px;
+}
+
+img.imgbt{
+	cursor: pointer;
+}
+input[readonly="readonly"]{
+	background-color:rgb(228, 225, 225);
+}
+
+#links li{
+	list-style-type: none;
+}
+
+#links li a{
+	text-decoration: none;
+	background-color:#532;
+	padding: 5px 15px;
+	color:white;
+	text-decoration:none;
+	border-radius:5px;
+}
+
+table.content{
+	width: 100%;
+	margin-top: 1.5em;
+	min-width: 1109px;
+}
