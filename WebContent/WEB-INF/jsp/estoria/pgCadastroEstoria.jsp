@@ -45,14 +45,14 @@
 		</div>	
 				
 		<div class="control-group">
-			<label class="control-label" for="imagem">Imagem:</label> 
+			<label class="control-label" for="imagem">Imagem(max 3MB):</label> 
 			<div class="controls">
 				<input id="imagem" name="arquivoImagem"  type="file"  value="Imagem" /> 
 			</div>
 		</div>
 		
 		<div class="control-group">
-			<label class="control-label" for="audio">Audio:</label> 
+			<label class="control-label" for="audio">Audio(max 10MB):</label> 
 			<div class="controls">
 				<input id="audio" name="arquivoAudio"  type="file"  value="Audio" /> 
 			</div>
