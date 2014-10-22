@@ -42,6 +42,17 @@ public class Usuario {
 
 	@Column(updatable=false)
 	private String salt;
+
+	
+	@OneToMany(mappedBy="usuario", cascade=CascadeType.ALL)
+	private List<Estoria> estorias;
+	
+	private String cpf;
+	
+	private String cidade;
+	
+
+	private String estado;
 	
 	public void setSenha(String senha) {
 		this.senha = senha;
@@ -51,16 +62,6 @@ public class Usuario {
 		this.salt = salt;
 	}
 
-	private String cpf;
-	
-	private String cidade;
-	
-
-	private String estado;
-	
-	@OneToMany(mappedBy="usuario", cascade=CascadeType.ALL)
-	private List<Estoria> estorias;
-	
 	public Usuario(){
 		
 	}

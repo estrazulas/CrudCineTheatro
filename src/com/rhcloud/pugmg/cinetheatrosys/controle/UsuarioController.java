@@ -61,16 +61,6 @@ public class UsuarioController {
 		}
 	}
 
-	@RestritoOffLine
-	@Get
-	public void cadastro() {
-	}
-	
-	@RestritoOffLine
-	@Post
-	public void fazCadastro(Usuario usuario) {
-		
-	}
 
 	/**
 	 * Tenta fazer login

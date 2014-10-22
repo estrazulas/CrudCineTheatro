@@ -49,12 +49,6 @@ public class EstoriaController extends PaginacaoController{
 	@Autowired
 	private Validator validator;
 
-	@RestritoVisitante
-	@Get
-	public void pgCadastroEstoriaLogado() {
-		result.include("userlogado", this.usuarioWeb);
-		result.redirectTo(EstoriaController.class).pgCadastroEstoria();
-	}
 
 	/**
 	 * Inclusão nova estoria
