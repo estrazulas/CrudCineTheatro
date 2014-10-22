@@ -41,7 +41,7 @@
 	<font style="font-weight:bold">Já possui cadastro? Faça login e registre a sua estória!</font><br/><br/>
 	</div>
 	<div id="wrapping">
-		Usu&aacute;rio:<input type="text" name="login" id="name" placeholder="Informe o e-mail de cadastro" autocomplete="off" class="input-block-level">
+		Usu&aacute;rio:<input type="text" name="login" id="name" placeholder="Informe o e-mail de cadastro" class="input-block-level">
 	</div>
 	<div id="wrapping">
 		Senha:<input type="password" name="senha" id="email" placeholder="Informe a senha" autocomplete="off" class="input-block-level">
@@ -56,7 +56,7 @@
 			</div>
 		</div>
 	</c:if> 
-	<br/><a href="<c:url value="/usuario/cadastro"/>">Cadastre-se e registre a sua primeira estória</a>	
+	<br/><a href="<c:url value="/estoria/pgCadastroEstoria"/>">Cadastre-se e registre a sua primeira estória</a>	
 	<div id="wrappingright">
 		<input type="submit" name="submit" id="submitbtn" class="btn btn-large btn-success span3" value="Entrar">
 	</div>

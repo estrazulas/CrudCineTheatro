@@ -22,9 +22,6 @@ public class Usuario {
 	@GeneratedValue
 	@Column(updatable =false)
 	private Integer id;
-	
-	@Column(updatable =false)
-	private String login;
  
 	@Enumerated(EnumType.STRING)
 	@Column(updatable =false)
@@ -42,11 +39,24 @@ public class Usuario {
 	
 	@Column(updatable=false)
 	private String senha;
-	
+
 	@Column(updatable=false)
 	private String salt;
 	
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
+
 	private String cpf;
+	
+	private String cidade;
+	
+
+	private String estado;
 	
 	@OneToMany(mappedBy="usuario", cascade=CascadeType.ALL)
 	private List<Estoria> estorias;
@@ -55,20 +65,12 @@ public class Usuario {
 		
 	}
 	
-	public Usuario(String login, TipoUsuario tipo, Boolean ativo, String email, String telefone, String nome, String cpf) {
-		super();
-		this.login = login;
-		this.tipo = tipo;
-		this.ativo = ativo;
-		this.email = email;
-		this.telefone = telefone;
-		this.nome = nome;
-		this.cpf = cpf;
+	public String getCidade() {
+		return cidade;
 	}
 
-	public Usuario(String nome, String email) {
-		this.nome = nome;
-		this.email = email;
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
 	}
 
 	public String getSenha() {
@@ -94,17 +96,9 @@ public class Usuario {
 	public String getNome() {
 		return nome;
 	}
-	
-	public void setLogin(String login) {
-		this.login = login;
-	}
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getLogin() {
-		return login;
 	}
 
 	public TipoUsuario getTipo() {
@@ -143,6 +137,14 @@ public class Usuario {
 
 	public boolean naoPossuiSenha() {
 		return this.getSenha() == null || this.getSenha().isEmpty();
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 	
 }

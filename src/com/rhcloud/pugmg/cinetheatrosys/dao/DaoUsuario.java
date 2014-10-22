@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.criterion.Criterion;
@@ -26,25 +27,22 @@ import com.rhcloud.pugmg.cinetheatrosys.modelo.repositorios.UsuarioRepository;
 @Component
 class DaoUsuario extends GenericDao<Usuario> implements UsuarioRepository {
 
-	public Usuario getUsuarioBanco(String login) 
+	public Usuario getUsuarioBanco(String email) 
 	{
-		Criteria critlogin = this.getSession().createCriteria(Usuario.class);
+		Criteria critlogin = this.criaCriteria();
 
-		critlogin.add(Restrictions.or(
-				Restrictions.eq("email",login), 
-				Restrictions.eq("login", login)
-				));
+		critlogin.add(
+				Restrictions.eq("email",email));
 		
 		return (Usuario) critlogin.uniqueResult();
 	}
 	
 	public Usuario autenticacao( String senhadigitada, String logindigitado,Usuario usuarioBanco) throws ExceptionSistema{
-		Criteria critlogin = this.getSession().createCriteria(Usuario.class);
+		Criteria critlogin = criaCriteria();
 
-		critlogin.add(Restrictions.or(
-				Restrictions.eq("email",logindigitado), 
-				Restrictions.eq("login",logindigitado)
-				));
+		critlogin.add(
+				Restrictions.eq("email",logindigitado)
+				);
 				
 		String hashComSalt = Hashs.getSHA256(senhadigitada+usuarioBanco.getSalt());
 		
@@ -54,7 +52,7 @@ class DaoUsuario extends GenericDao<Usuario> implements UsuarioRepository {
 		
 		if(usuario == null)
 		{
-			throw new ExceptionSistema("daouser.validaAutenticacaoExterna.dadosinvalidos");
+			throw new ExceptionSistema("daouser.validaautenticacao.dadosinvalidos");
 		}else{
 			return usuario;
 		}
@@ -65,10 +63,18 @@ class DaoUsuario extends GenericDao<Usuario> implements UsuarioRepository {
 	 * Salva um novo usuário no banco, sem permissão inicialmente
 	 * @param usuario
 	 */
-	public void saveNovoAcesso(Usuario usuario, TipoUsuario tipo) {
+	public Usuario saveNovoAcesso(Usuario usuario, TipoUsuario tipo) {
 		usuario.setTipo(tipo);
 		usuario.setAtivo(true);
+
 		this.save(usuario);
+		String senhaAleatoria = usuario.getSenha();
+		String salt = RandomStringUtils.random(5,true,true);
+		String hash = Hashs.getSHA256(senhaAleatoria+salt);
+		
+		this.setCredencial(usuario, hash, salt);
+	
+		return usuario;
 	}
 
 	/**
@@ -88,12 +94,12 @@ class DaoUsuario extends GenericDao<Usuario> implements UsuarioRepository {
 	 * @return usuário persistido no banco
 	 */
 	public Usuario getUsuarioPeloEmail(String email) {
-		return (Usuario) this.getSession().createCriteria(Usuario.class).add(Restrictions.eq("email",email)).uniqueResult();
+		return (Usuario) this.criaCriteria().add(Restrictions.eq("email",email)).uniqueResult();
 	}
 
 	@Override
 	public Usuario getUsuarioBancoPorId(int id) {
-		return (Usuario) this.getSession().createCriteria(Usuario.class).add(Restrictions.eq("id", id)).uniqueResult();
+		return (Usuario) this.criaCriteria().add(Restrictions.eq("id", id)).uniqueResult();
 	}
 	@Override
 	public long quantidadeDeUsuarios() {
@@ -120,28 +126,24 @@ class DaoUsuario extends GenericDao<Usuario> implements UsuarioRepository {
 
 	@Override
 	public boolean usuarioJaExiste(Usuario elaborador) {
-		Criterion crit = Restrictions.or(Restrictions.eq("login", elaborador.getLogin()),Restrictions.eq("email", elaborador.getEmail()),Restrictions.eq("cpf", elaborador.getCpf()));
-		Criteria criteria  = this.getSession().createCriteria(Usuario.class).add(crit);
+		Criterion crit = Restrictions.or(Restrictions.eq("email", elaborador.getEmail()),Restrictions.eq("cpf", elaborador.getCpf()));
+		Criteria criteria  = this.criaCriteria().add(crit);
 		return (criteria.uniqueResult() != null);
 	}
 	
 	@Override
-	public Usuario getUsuario(String login, String email, String cpf) {
-		return (Usuario) this.getSession().createCriteria(Usuario.class).add(Restrictions.or(Restrictions.eq("login", login),Restrictions.eq("email", email),Restrictions.eq("cpf", cpf))).uniqueResult();
+	public Usuario getUsuario(String email, String cpf) {
+		return (Usuario) this.criaCriteria().add(Restrictions.or(Restrictions.eq("email", email),Restrictions.eq("cpf", cpf))).uniqueResult();
 	}
 	
 	@Override
 	public void setCredencial(Usuario usuario,String hash, String salt) {
-		Query query = this.getSession().createQuery("UPDATE User u SET u.senha = :pSenha, u.salt = :pSalt WHERE u = :pUsuario ");
+		Query query = this.criaQuery("UPDATE Usuario u SET u.senha = :pSenha, u.salt = :pSalt WHERE u = :pUsuario ");
 		query.setParameter("pSenha", hash);
 		query.setParameter("pSalt", salt);
 		query.setParameter("pUsuario", usuario);
 		
 		query.executeUpdate();
 	}
-
-
-
-
 	
 }

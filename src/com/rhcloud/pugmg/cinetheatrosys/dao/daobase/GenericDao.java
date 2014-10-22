@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
@@ -35,7 +36,7 @@ public class GenericDao<T> implements DaoBaseMethods<T>
 		tipoPersistencia = (Class<T>)((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 	}
 	
-	public Session getSession() {
+	private Session getSession() {
 		return session;
 	}
 
@@ -129,6 +130,14 @@ public class GenericDao<T> implements DaoBaseMethods<T>
 	
 	public Class<T> getTipoPersistencia() {
 		return tipoPersistencia;
+	}
+
+	public Query criaQuery(String hql) {
+		return this.getSession().createQuery(hql);
+	}
+
+	public Criteria criaCriteria() {
+		return this.getSession().createCriteria(getTipoPersistencia());
 	}
 
 	

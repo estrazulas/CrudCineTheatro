@@ -12,7 +12,6 @@
 		<filter-name>vraptor</filter-name>
 		<filter-class>br.com.caelum.vraptor.VRaptor</filter-class>
 	</filter>
-
 	<session-config>
 		<tracking-mode>COOKIE</tracking-mode>
 	</session-config>

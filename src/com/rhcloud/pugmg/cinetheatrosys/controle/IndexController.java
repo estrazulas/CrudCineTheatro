@@ -23,6 +23,9 @@ public class IndexController {
 	@Path("/")
 	public void index() 
 	{
-
+		if(usuarioWeb.isVisitante()){
+			result.redirectTo(EstoriaController.class).listar();
+		}
+		
 	}
 }

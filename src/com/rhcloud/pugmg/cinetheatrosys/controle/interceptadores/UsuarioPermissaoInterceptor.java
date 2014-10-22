@@ -20,6 +20,7 @@ import com.rhcloud.pugmg.cinetheatrosys.controle.UsuarioController;
 import com.rhcloud.pugmg.cinetheatrosys.controle.anotacoes.RestritoAdmin;
 import com.rhcloud.pugmg.cinetheatrosys.controle.anotacoes.RestritoLogado;
 import com.rhcloud.pugmg.cinetheatrosys.controle.anotacoes.RestritoOffLine;
+import com.rhcloud.pugmg.cinetheatrosys.controle.anotacoes.RestritoVisitante;
 import com.rhcloud.pugmg.cinetheatrosys.modelo.auxiliares.UsuarioWeb;
 
 /**
@@ -60,9 +61,11 @@ public class UsuarioPermissaoInterceptor implements Interceptor {
 				
 				   (estaLogado() && method.containsAnnotation(RestritoOffLine.class)) ||
 				   
+				   ((!logadoAtivo() ||!usuario.isVisitante()) && method.containsAnnotation(RestritoVisitante.class)) ||
+				   
 				   ((!logadoAtivo() ||!usuario.isAdmin()) && method.containsAnnotation(RestritoAdmin.class)) 
 				   
-				    
+				   
 				   
 				);
 	}

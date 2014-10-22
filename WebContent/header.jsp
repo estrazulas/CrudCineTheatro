@@ -24,9 +24,9 @@
 		<link href="<c:url value="/css/style.css"/>" rel="stylesheet" /> 
 		<link href="<c:url value="/css/jquery.fileupload-ui.css"/>" rel="stylesheet">
 		<link href="<c:url value="/css/jasny-bootstrap.min.css"/>" rel="stylesheet">
-		<link href="<c:url value="/css/governo.css"/>" rel="stylesheet" type="text/css" media="screen" />
 		<script src="<c:url value="/javascripts/externos/jquery-2.1.0.min.js"/>"></script>
 		<script src="<c:url value="/javascripts/externos/jquery.validate.min.js"/>"></script>
+		<script src="<c:url value="/javascripts/externos/additional-methods.min.js"/>"></script>
 	   
 	   	<!-- Javascripts -->
 	   	<script src="<c:url value="/lib/bootstrap-3.2.0-dist/js/bootstrap.min.js"/>"></script>	

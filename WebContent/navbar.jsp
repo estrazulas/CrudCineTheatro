@@ -29,7 +29,7 @@ body {
 						<ul class="dropdown-menu">
 								<li class="dropdown-header">COMISSÃO</li>
 								<li><a
-									href="<c:url value="/estoria/pgCadastroEstoria"/>">Cadastro
+									href="<c:url value="/estoria/listar"/>">Registrar e listar
 										estórias</a></li>
 							
 					</ul></li>
