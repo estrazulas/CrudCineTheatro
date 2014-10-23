@@ -27,7 +27,6 @@ body {
 						data-toggle="dropdown">Estórias<b class="caret"></b></a>
 
 						<ul class="dropdown-menu">
-								<li class="dropdown-header">COMISSÃO</li>
 								<li><a
 									href="<c:url value="/estoria/listar"/>">Registrar e listar
 										estórias</a></li>
